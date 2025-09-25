@@ -1,0 +1,52 @@
+<!-- <div *ngIf="loading" class="text-center my-5">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div> -->
+
+<div *ngIf="loading" class="d-flex justify-content-center my-5">
+  <mat-progress-spinner
+    color="primary"
+    mode="indeterminate"
+    diameter="75">
+  </mat-progress-spinner>
+</div>
+
+
+<div *ngIf="errorMessage" class="alert alert-danger text-center">
+  {{ errorMessage }}
+</div>
+
+<div  class="container my-4">
+  <div class="row g-3">
+    <div class="col-md-4" *ngFor="let task of tasks">
+      <mat-card class="h-100 mat-elevation-z4">
+        <mat-card-header>
+          <mat-card-title class="title"> <a [routerLink]="['/task-detail', task.id]" class="text-decoration-none fw-bold">{{ task.title }} </a></mat-card-title>
+        </mat-card-header>
+            <div class="custom-divider"></div>
+        <mat-card-content>
+          <p *ngIf="task.description!=''">{{ task.description }}</p>
+          <p *ngIf="task.status!=''">Status : {{ task.status}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<div class="container my-4">
+  <div class="row g-3">
+    <div class="col-md-4" *ngFor="let task of fetchedTasks">
+      <mat-card class="h-100 mat-elevation-z4">
+        <mat-card-header>
+          <mat-card-title class="title"> <a [routerLink]="['/task-detail', task.id]" >{{ task.title }} </a></mat-card-title>
+        </mat-card-header>
+            <div class="custom-divider"></div>
+        <mat-card-content>
+           <p>Status: {{ task.completed ? 'Completed' : 'Pending' }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

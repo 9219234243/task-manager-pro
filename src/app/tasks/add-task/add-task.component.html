@@ -1,0 +1,68 @@
+
+<div class="container mt-4">
+  <form (submit)="onSubmit()" #myForm="ngForm">
+    <!-- Title -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+     <input
+  type="text"
+  id="title"
+  name="title"
+  class="form-control"
+  [(ngModel)]="title"
+  #titleRef="ngModel"
+  required
+  minlength="3"
+/>
+
+      <div *ngIf="titleRef.invalid && titleRef.touched"  class="text-danger">
+       <small> Title of atleast 3 character is required.</small>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        name="description"
+        [(ngModel)]="description"
+        required
+        #desRef="ngModel"
+      ></textarea>
+       <div *ngIf="desRef.invalid && titleRef.touched"  class="text-danger">
+       <small> Description required.</small>
+      </div>
+    </div>
+    
+
+    <!-- Status -->
+      <div *ngIf="statusRef.invalid && statusRef.touched" style="color: red;" class="text-danger">
+       <small> Please select status.</small>
+      </div>
+    <div class="mb-3">
+      <label for="status" class="form-label">Status</label>
+      
+      <select
+        id="status"
+        name="status"
+        class="form-select"
+        [(ngModel)]="status"
+        #statusRef="ngModel"
+        required
+      >
+      <option value=""  selected> --- Select  status ---</option> 
+         <option *ngFor="let status of statuses" [value]="status">
+          {{ status }}
+        </option> 
+      </select>
+      
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">
+      Submit
+    </button>
+  </form>
+</div>

@@ -1,0 +1,18 @@
+
+
+<div class="container my-4">
+  <div class="row g-3">
+    <div class="col-md-4" >
+      <mat-card class="h-100 mat-elevation-z4">
+        <mat-card-header>
+          <mat-card-title class="title">{{ task.title }}</mat-card-title>
+        </mat-card-header>
+            <div class="custom-divider"></div>
+        <mat-card-content>
+          <p>{{ task.description }}</p>
+          <p *ngIf="task.status!=''">{{ task.status}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

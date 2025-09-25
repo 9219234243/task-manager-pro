@@ -1,0 +1,20 @@
+
+
+<!-- Route Output -->
+<div class="container mt-4">
+    <app-header></app-header>
+    <nav class="navbar navbar-expand navbar-dark bg-dark px-4">
+  <ul class="navbar-nav ms-4">
+    <li class="nav-item">
+      <a routerLink="tasks" [routerLinkActive]="'active'" class="nav-link text-light">Tasks</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="add-task" [routerLinkActive]="'active'" class="nav-link text-light">Add Task</a>
+    </li>
+  </ul>
+</nav>
+<div class="container flex-grow-1">
+    <router-outlet></router-outlet>
+</div>
+    <app-footer class="footer"></app-footer>
+</div>

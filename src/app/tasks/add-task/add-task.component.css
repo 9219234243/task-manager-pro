@@ -1,0 +1,41 @@
+/* .form {
+    border-radius: 5px;
+    background-color: aliceblue;
+    padding: 20px;
+    width: 420px;
+    margin: 10;
+} */
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;   /* Horizontally center */
+  align-items: center;       /* Vertically center */
+  height: 100vh;             /* Full viewport height */
+  background-color: #f8f9fa; /* Optional: light gray background */
+}
+
+.form-box {
+  background-color: #f1f1f1;
+  padding: 30px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} 
+
+.small {
+  color: red;
+}
+
+input.ng-invalid{
+  border: red 1px solid;
+}
+
+select.ng-invalid{
+  border: red 1px solid;
+}
