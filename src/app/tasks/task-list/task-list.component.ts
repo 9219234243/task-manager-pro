@@ -62,7 +62,10 @@ export class TaskListComponent implements OnInit,AfterViewInit {
         this.loading=true;
         this.taskService.getFetchedTasks().subscribe({next:
           (data) => {
-          this.fetchedTasks = data.slice(0, 10);
+        //    this.fetchedTasks = data.slice(0, 10);
+          this.dataSource.data = data;
+          this.dataSource.paginator=this.paginator;
+          this.dataSource.sort=this.sort;
           this.loading=false;
           },error: (err=>{
               this.loading=false;
@@ -76,33 +79,33 @@ export class TaskListComponent implements OnInit,AfterViewInit {
         
   }
 
-  displayedColumns: string[] = ['userId', 'id', 'title', 'completed'];
-  dataSource = new MatTableDataSource<FetchedTask>(TODOS);
+  displayedColumns: string[] = [ 'id', 'userId','title', 'completed'];
+  dataSource = new MatTableDataSource<FetchedTask>([]);
   filterValue = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
 
-    // Customize filter to handle boolean and string fields
-    this.dataSource.filterPredicate = (data: Todo, filter: string) => {
-      const dataStr =
-        data.userId +
-        ' ' +
-        data.id +
-        ' ' +
-        data.title.toLowerCase() +
-        ' ' +
-        (data.completed ? 'completed' : 'not completed');
-      return dataStr.indexOf(filter) !== -1;
-    };
+    // this.dataSource.filterPredicate = (data: FetchedTask, filter: string) => {
+    //   const dataStr =
+    //     data.userId +
+    //     ' ' +
+    //     data.id +
+    //     ' ' +
+    //     data.title.toLowerCase() +
+    //     ' ' +
+    //     (data.completed ? 'completed' : 'not completed');
+    //   return dataStr.indexOf(filter) !== -1;
+    // };
   }
 
   applyFilter() {
     this.dataSource.filter = this.filterValue.trim().toLowerCase();
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

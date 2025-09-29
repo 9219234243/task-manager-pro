@@ -1,6 +1,6 @@
 .table-container {
   margin: 20px auto; /* top/bottom margin 20px, center horizontally */
-  max-width: 900px; /* limit the max width so it doesn't stretch too much */
+  max-width: 100%; /* limit the max width so it doesn't stretch too much */
   padding: 0 10px; /* optional padding on sides */
   box-sizing: border-box;
 }
