@@ -103,7 +103,6 @@ export class TaskListComponent implements OnInit,AfterViewInit {
 
   applyFilter() {
     this.dataSource.filter = this.filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
