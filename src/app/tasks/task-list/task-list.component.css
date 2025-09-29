@@ -14,3 +14,15 @@
 .title{
   color: blueviolet;
 } */
+
+
+mat-form-field input {
+  border: 5cap;
+  border-color: blue;
+  margin-bottom: 20px;
+  
+}
+table {
+  width: 100%;
+}
+

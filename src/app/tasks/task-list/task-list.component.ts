@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FetchedTask, TaskService } from '../service/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-task-list',
@@ -14,6 +17,13 @@ export class TaskListComponent implements OnInit {
 
   loading:boolean=false;
   errorMessage:string="";
+
+  displayedColumns:string[]=['id','title','completed'];
+  dataSource = new MatTableDataSource<FetchedTask>();
+  searchKey: string = '';
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private taskService :TaskService,private route : Router,private activatedRoute : ActivatedRoute) { }
 
@@ -41,7 +51,9 @@ export class TaskListComponent implements OnInit {
         //   this.fetchedTasks = data.slice(0, 10); // Save fetched tasks
         // });
 
-        // this.loading=true;
+        this.loading=true;
+
+        //For Cards
         // this.taskService.getFetchedTasks().subscribe({next:
         //   (data) => {
         //   this.fetchedTasks = data.slice(0, 10);
@@ -55,7 +67,36 @@ export class TaskListComponent implements OnInit {
         //     console.log("Data fetched successfully.");
         //   },
         // });
+
+        // For Table
+    this.taskService.getFetchedTasks().subscribe({next:
+          (data) => {
+          //this.dataSource.data = data.slice(0, 10);
+          this.dataSource.data = data;
+          this.dataSource.paginator=this.paginator;
+          this.dataSource.sort=this.sort;
+          this.loading=false;
+          },error: (err=>{
+              this.loading=false;
+               this.errorMessage = 'Failed to fetch tasks. Please try again later.';
+              console.error('API Error:', err);
+          }),
+          complete() {
+            console.log("Data fetched successfully.");
+          },
+        });
+  }
+
+  //For Search
+   applyFilter() {
+    this.dataSource.filter = this.searchKey.trim().toLowerCase();
+  }
+
+  clearSearch() {
+    this.searchKey = '';
+    this.applyFilter();
+  }
         
   }
 
-}
+

@@ -1,17 +1,19 @@
 .footer {
  
-  background-color: #0077cc; /* You can change this color */
+   background-color: #0077cc; 
   color: white;
   padding: 20px;
   font-size: 30px;
   font-weight: bold;
-  text-align: center;
-
+  text-align: center; 
+  
   position: sticky;
-  top: 0;
+  bottom: 0;
   z-index: 1000; /* Ensures it stays above other content */
   
 }
+
+
 
 .footer i {
   color: black;
