@@ -18,4 +18,12 @@ export class TaskDetailComponent implements OnInit {
     this.task=this.taskService.getTasks().find(x=> x.id==this.taskId)
   }
 
+  
+
+  goBack() {
+    this.taskService.goBack();
+  }
+
+
+
 }
