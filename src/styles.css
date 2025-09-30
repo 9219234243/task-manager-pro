@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+*{margin: 0px;}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .custom-divider {
@@ -28,3 +28,32 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+/* Back Button Styles */
+
+.back-button:hover {
+  cursor: pointer;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #0078d4; /* Blue text color */
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  font-family: inherit;
+  font-weight: bolder;
+}
+
+
+
+.back-button:focus {
+  outline: 2px solid #005a9e;
+  outline-offset: 2px;
+}
+

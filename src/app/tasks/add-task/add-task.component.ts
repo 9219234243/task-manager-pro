@@ -36,9 +36,11 @@ export class AddTaskComponent implements OnInit {
           description: this.description,
           status: this.status
     });
-
-    alert("Form Submited");
     this.form.reset();
+  }
+
+  back(){
+    this.taskService.goBack();
   }
 
 }

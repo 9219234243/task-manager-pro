@@ -1,6 +1,14 @@
 
-<div class="container mt-4">
-  <form (submit)="onSubmit()" #myForm="ngForm">
+<!-- Back Button -->
+ <div class="container mt-4">
+<button class="back-button" (click)="back()">
+  &#8592; Back
+</button>
+</div>
+
+<div class="container d-flex justify-content-center flex-column align-items-center ">
+  <div  class="add-task">Add Task</div>
+  <form  class="mt-3 d-flex flex-column" (submit)="onSubmit()" #myForm="ngForm">
     <!-- Title -->
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
@@ -8,6 +16,7 @@
   type="text"
   id="title"
   name="title"
+    [ngClass]="{'is-invalid': titleRef.invalid && (titleRef.touched || titleRef.dirty)}"
   class="form-control"
   [(ngModel)]="title"
   #titleRef="ngModel"
@@ -15,7 +24,7 @@
   minlength="3"
 />
 
-      <div *ngIf="titleRef.invalid && titleRef.touched"  class="text-danger">
+      <div *ngIf="titleRef.invalid && (titleRef.touched || titleRef.dirty)"  class="text-danger">
        <small> Title of atleast 3 character is required.</small>
       </div>
     </div>

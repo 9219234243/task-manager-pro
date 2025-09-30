@@ -34,28 +34,32 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
     //this.tasks=this.taskService.tasks;
-    this.tasks=this.taskService.getTasks();
+    //this.tasks=this.taskService.getTasks();
 
           // Fetch from API (first 10)
         // this.taskService.getFetchedTasks().subscribe(data => {
         //   this.fetchedTasks = data.slice(0, 10); // Save fetched tasks
         // });
 
-        // this.loading=true;
-        // this.taskService.getFetchedTasks().subscribe({next:
-        //   (data) => {
-        //   this.fetchedTasks = data.slice(0, 10);
-        //   this.loading=false;
-        //   },error: (err=>{
-        //       this.loading=false;
-        //        this.errorMessage = 'Failed to fetch tasks. Please try again later.';
-        //       console.error('API Error:', err);
-        //   }),
-        //   complete() {
-        //     console.log("Data fetched successfully.");
-        //   },
-        // });
+        this.loading=true;
+        this.taskService.getFetchedTasks().subscribe({next:
+          (data) => {
+          this.fetchedTasks = data.slice(0, 10);
+          this.loading=false;
+          },error: (err=>{
+              this.loading=false;
+               this.errorMessage = 'Failed to fetch tasks. Please try again later.';
+              console.error('API Error:', err);
+          }),
+          complete() {
+            console.log("Data fetched successfully.");
+          },
+        });
         
+  }
+
+  back(){
+    this.taskService.goBack();
   }
 
 }

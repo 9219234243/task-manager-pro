@@ -39,3 +39,17 @@ input.ng-invalid{
 select.ng-invalid{
   border: red 1px solid;
 }
+
+form{
+  width: 50vw; 
+  min-height: 65vh;
+}
+
+
+.add-task{
+font-size: medium;
+font-weight: bolder;
+ border-bottom: 2px solid rgb(1, 1, 10); /* color and thickness */
+  display: inline;               /* important to keep underline tight */
+  padding-bottom: 2px;  
+}

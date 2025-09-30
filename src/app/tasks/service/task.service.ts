@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-
+import { Location } from '@angular/common';
 
 export interface FetchedTask {
   userId: number;
@@ -39,13 +39,16 @@ export class TaskService{
 
   private apiUrl = 'https://jsonplaceholder.typicode.com/todos';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private location : Location) {}
 
   getFetchedTasks(): Observable<FetchedTask[]> {
     return this.http.get<FetchedTask[]>(this.apiUrl);
   }
 
 
+goBack(){
+this.location.back();
+}
 
   
 }

@@ -1,9 +1,9 @@
 
-
 <!-- Route Output -->
-<div class="container mt-4">
+<div class="container">
     <app-header></app-header>
-    <nav class="navbar navbar-expand navbar-dark bg-dark px-4">
+    <div style="position: sticky;">
+    <nav class="navbar navbar-expand navbar-dark bg-dark px-4" >
   <ul class="navbar-nav ms-4">
     <li class="nav-item">
       <a routerLink="tasks" [routerLinkActive]="'active'" class="nav-link text-light">Tasks</a>
@@ -13,7 +13,8 @@
     </li>
   </ul>
 </nav>
-<div class="container flex-grow-1">
+    </div>
+<div class="container">
     <router-outlet></router-outlet>
 </div>
     <app-footer class="footer"></app-footer>
