@@ -20,13 +20,15 @@ export class TaskService{
         id:1,title:"Learn Angular basic",description:"Helps to get basic understanding of Angular like component and rendering.",status:"Completed"
     },
     {
-        id:2,title:"Basic Hands on Angular",description:"Make you learn create basic angular project.",status:"Completed"
+        id:2,title:"Basic Hands on Angular",description:"Make you learn create basic angular project.",status:"TO DO"
     }
     ,
     {
         id:3,title:"Learn Angular forms and routing",description:"You will be able to make forms and routing.",status:"Pending"
     }
   ]
+
+  //tasks:{id:number, title: string; description: string; status: string }[]=[];
 
   getTasks(){
     return this.tasks;
@@ -35,6 +37,7 @@ export class TaskService{
 
   addTask(task: {id:number, title: string; description: string; status: string }) {
     this.tasks.push(task);
+    
   }
 
   private apiUrl = 'https://jsonplaceholder.typicode.com/todos';

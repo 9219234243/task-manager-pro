@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { TaskService } from '../service/task.service';
-import { FormsModule } from '@angular/forms';
-
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-add-task',
@@ -42,5 +41,10 @@ export class AddTaskComponent implements OnInit {
   back(){
     this.taskService.goBack();
   }
+
+  isInvalid(field: NgModel): any {
+  return field.invalid && (field.touched || field.dirty);
+}
+
 
 }

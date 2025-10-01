@@ -16,7 +16,7 @@
   type="text"
   id="title"
   name="title"
-    [ngClass]="{'is-invalid': titleRef.invalid && (titleRef.touched || titleRef.dirty)}"
+    [ngClass]="{'is-invalid': titleRef.invalid && (titleRef.touched)}"
   class="form-control"
   [(ngModel)]="title"
   #titleRef="ngModel"
@@ -35,19 +35,20 @@
       <textarea
         id="description"
         class="form-control"
+        [ngClass]="{'is-invalid': desRef.invalid && (desRef.touched)}"
         name="description"
         [(ngModel)]="description"
         required
         #desRef="ngModel"
       ></textarea>
-       <div *ngIf="desRef.invalid && titleRef.touched"  class="text-danger">
+       <div *ngIf="desRef.invalid && (desRef.touched || desRef.dirty)"  class="text-danger">
        <small> Description required.</small>
       </div>
     </div>
     
 
     <!-- Status -->
-      <div *ngIf="statusRef.invalid && statusRef.touched" style="color: red;" class="text-danger">
+      <div *ngIf="statusRef.invalid && (statusRef.touched || statusRef.dirty)" style="color: red;" class="text-danger">
        <small> Please select status.</small>
       </div>
     <div class="mb-3">
@@ -57,6 +58,7 @@
         id="status"
         name="status"
         class="form-select"
+        [ngClass]="{'is-invalid': statusRef.invalid && (statusRef.touched)}"
         [(ngModel)]="status"
         #statusRef="ngModel"
         required

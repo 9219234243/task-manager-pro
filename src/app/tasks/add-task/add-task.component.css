@@ -32,13 +32,13 @@ body, html {
   color: red;
 }
 
-input.ng-invalid{
+/* input.ng-invalid{
   border: red 1px solid;
-}
+} 
 
 select.ng-invalid{
   border: red 1px solid;
-}
+}*/
 
 form{
   width: 50vw; 
