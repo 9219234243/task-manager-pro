@@ -3,3 +3,12 @@
   font-weight: bold;
   border-bottom: 2px solid #ffc107;
 }
+
+
+.body-container {
+  margin-top: 40px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}

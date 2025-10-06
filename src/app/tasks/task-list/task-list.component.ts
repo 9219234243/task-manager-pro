@@ -1,6 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FetchedTask, TaskService } from '../service/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
+import { NgForm } from '@angular/forms';
+
+interface Task {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+}
 
 @Component({
   selector: 'app-task-list',
@@ -15,51 +24,150 @@ export class TaskListComponent implements OnInit {
   loading:boolean=false;
   errorMessage:string="";
 
-  constructor(private taskService :TaskService,private route : Router,private activatedRoute : ActivatedRoute) { }
-
-  /*tasks=[
-    {
-        title:"Learn Angular basic",description:"Helps to get basic understanding of Angular like component and rendering."
-    },
-    {
-        title:"Basic Hands on Angular",description:"Make you learn create basic angular project."
-    }
-    ,
-    {
-        title:"Learn Angular forms and routing",description:"You will be able to make forms and routing."
-    }
-  ];*/
-
-  
+  constructor(private taskService :TaskService,private route : Router,private activatedRoute : ActivatedRoute) { }  
+  @ViewChild('addTaskForm') form! : NgForm;
 
   ngOnInit(): void {
+    
+    this.loading=true;
     //this.tasks=this.taskService.tasks;
-    //this.tasks=this.taskService.getTasks();
+    this.taskService.getTasks().subscribe(data=>{
+          this.tasks=data;
+    });
+
+    this.statuses=this.taskService.statuses;
 
           // Fetch from API (first 10)
         // this.taskService.getFetchedTasks().subscribe(data => {
         //   this.fetchedTasks = data.slice(0, 10); // Save fetched tasks
         // });
 
-        this.loading=true;
-        this.taskService.getFetchedTasks().subscribe({next:
-          (data) => {
-          this.fetchedTasks = data.slice(0, 10);
-          this.loading=false;
-          },error: (err=>{
-              this.loading=false;
-               this.errorMessage = 'Failed to fetch tasks. Please try again later.';
-              console.error('API Error:', err);
-          }),
-          complete() {
-            console.log("Data fetched successfully.");
-          },
-        });
+        
+        // this.taskService.getFetchedTasks().subscribe({next:
+        //   (data) => {
+        //   this.fetchedTasks = data.slice(0, 10);
+        //   this.loading=false;
+        //   },error: (err=>{
+        //       this.loading=false;
+        //        this.errorMessage = 'Failed to fetch tasks. Please try again later.';
+        //       console.error('API Error:', err);
+        //   }),
+        //   complete() {
+        //     console.log("Data fetched successfully.");
+        //   },
+        // });
+
+        this.loadTasks();
+        this.loading=false;
         
   }
 
   back(){
     this.taskService.goBack();
   }
+
+
+  todoTasks: Task[] = [];
+inProgressTasks: Task[] = [];
+completedTasks: Task[] = [];
+statuses:string[]=[];
+
+
+loadTasks() {
+  this.todoTasks = this.tasks.filter(t => t.status === 'TO DO');
+  this.inProgressTasks = this.tasks.filter(t => t.status === 'In progress');
+  this.completedTasks = this.tasks.filter(t => t.status === 'Completed');
+}
+
+drop(event: CdkDragDrop<Task[]>, newStatus: 'TO DO' | 'In progress' | 'Completed') {
+  alert("drop  called ");
+  if (event.previousContainer === event.container) {
+    // Reordering within the same list
+    // optional: implement move logic if needed
+  } else {
+    // Moving between lists
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    // Update the status of the moved task
+    const movedTask = event.container.data[event.currentIndex];
+    movedTask.status = newStatus;
+  }
+}
+
+ getTasksByStatus(status: Task['status']) {
+    return this.tasks.filter(t => t.status === status);
+  }
+
+
+  editTask(task: Task) {
+    alert(`Editing task: ${task.title}`);
+    // You can implement real edit logic here, e.g., open modal with form
+  }
+
+  deleteTask(task: Task) {
+    if (confirm(`Are you sure you want to delete task "${task.title}"?`)) {
+      this.loading=true;
+      this.taskService.deleteTask(task.id);
+      this.loading=false;
+    }
+  }
+
+    newTask: Partial<Task> = {
+    title: '',
+    description: '',
+    status: 'TO DO'
+  };
+
+    showAddTaskPopup = false;
+    openAddTaskPopup() {
+      this.newTask.title="tetscvc";
+    this.showAddTaskPopup = true;
+    this.resetNewTask();
+  }
+
+  closeAddTaskPopup() {
+    this.showAddTaskPopup = false;
+  }
+
+  resetNewTask() {
+    this.newTask = {
+      title: '',
+      description: '',
+      status: 'TO DO'
+    };
+  }
+
+  submitNewTask() {
+    // Generate unique ID - simple example (max existing id + 1)
+    const maxId = this.tasks.length ? Math.max(...this.tasks.map(t => t.id)) : 0;
+    // const taskToAdd: Task = {
+    //   id: maxId + 1,
+    //   title: this.newTask.title!.trim(),
+    //   description: this.newTask.description!.trim(),
+    //   status: this.newTask.status!
+    // };
+
+    const taskToAdd: Task = {
+      id: maxId + 1,
+      title: this.title!.trim(),
+      description: this.description!.trim(),
+      status: this.status!
+    };
+
+    this.taskService.addTask(taskToAdd);
+    this.closeAddTaskPopup();
+  }
+
+
+  description!:string;
+  title!:string;
+  status!:string;
+
+    
 
 }

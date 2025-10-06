@@ -15,12 +15,12 @@ export class AddTaskComponent implements OnInit {
   description!:string;
   status!:string;
 
-  statuses=[
-    "Pending","In Progress","Completed"
-  ];
+  statuses:string[]=[];
+
   @ViewChild('myForm') form! : NgForm;
 
   ngOnInit(): void {
+        this.statuses=this.taskService.statuses;
   }
 
   onSubmit(){
@@ -28,7 +28,6 @@ export class AddTaskComponent implements OnInit {
     // this.description=this.form.value.description;
      this.status=this.form.value.status;
     console.log(this.title +" :: "+this.description +" :: "+this.status);
-    
     this.taskService.addTask({
           id:Math.random(),
           title: this.title,

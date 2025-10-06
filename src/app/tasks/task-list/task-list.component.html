@@ -25,7 +25,7 @@
 </div>
 
 <!-- Show Task in card form -->
-<div  class="container my-4">
+<!-- <div  class="container my-4">
   <div class="row g-3">
     <div class="col-md-4" *ngFor="let task of tasks">
       <mat-card class="h-100 mat-elevation-z4">
@@ -40,26 +40,11 @@
       </mat-card>
     </div>
   </div>
-</div>
-
-<!-- <div class="container my-4">
-  <div class="row g-3">
-    <div class="col-md-4" *ngFor="let task of fetchedTasks">
-      <mat-card class="h-100 mat-elevation-z4">
-        <mat-card-header>
-          <mat-card-title class="title"> <a [routerLink]="['/task-detail', task.id]" >{{ task.title }} </a></mat-card-title>
-        </mat-card-header>
-            <div class="custom-divider"></div>
-        <mat-card-content>
-           <p>Status: {{ task.completed ? 'Completed' : 'Pending' }}</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
 </div> -->
 
+
 <!-- Show Task in List form -->
-<div  class="container my-4">
+<!-- <div  class="container my-4">
   <div class="row g-3">
     <div class="col-md-4" *ngFor="let task of fetchedTasks">
       <mat-card class="h-100 mat-elevation-z4">
@@ -73,5 +58,90 @@
       </mat-card>
     </div>
   </div>
+</div> -->
+<!-- 
+<div class="task-board" style="display: flex; gap: 16px;">
+
+  <div cdkDropList [cdkDropListData]="todoTasks" class="task-column" (cdkDropListDropped)="drop($event, 'TO DO')">
+    <h3>TO DO</h3>
+    <mat-card *ngFor="let task of todoTasks" cdkDrag>
+      <mat-card-title>{{ task.title }}</mat-card-title>
+      <mat-card-content>{{ task.description }}</mat-card-content>
+    </mat-card>
+  </div>
+
+  <div cdkDropList [cdkDropListData]="inProgressTasks" class="task-column" (cdkDropListDropped)="drop($event, 'In progress')">
+    <h3>In progress</h3>
+    <mat-card *ngFor="let task of inProgressTasks" cdkDrag>
+      <mat-card-title>{{ task.title }}</mat-card-title>
+      <mat-card-content>{{ task.description }}</mat-card-content>
+    </mat-card>
+  </div>
+
+  <div cdkDropList [cdkDropListData]="completedTasks" class="task-column" (cdkDropListDropped)="drop($event, 'Completed')">
+    <h3>Completed</h3>
+    <mat-card *ngFor="let task of completedTasks" cdkDrag>
+      <mat-card-title>{{ task.title }}</mat-card-title>
+      <mat-card-content>{{ task.description }}</mat-card-content>
+    </mat-card>
+  </div>
+
+</div> -->
+
+<div>
+<button class="add-task-btn" (click)="openAddTaskPopup()">+ Add Task</button>
 </div>
+
+
+
+<div class="board">
+  <div class="column" *ngFor="let col of statuses">
+    <h3 class="column-title">{{ col }}</h3>
+    <div class="tasks-container">
+      <div class="task-card" *ngFor="let task of getTasksByStatus(col)">
+        <div class="task-id">ID: {{ task.id }}</div>
+        <div class="task-title">{{ task.title }}</div>
+        <div class="task-desc">{{ task.description }}</div>
+        <div class="actions">
+          <button (click)="editTask(task)" class="btn edit-btn">Edit</button>
+          <button (click)="deleteTask(task)" class="btn delete-btn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Popup form - shown conditionally -->
+<div class="popup-overlay" *ngIf="showAddTaskPopup">
+  <div class="popup">
+    <h3>Add New Task</h3> 
+    <form (ngSubmit)="submitNewTask()" #addTaskForm="ngForm">
+
+      <label>Title</label>
+      <input type="text" name="title" [(ngModel)]="newTask.title" required #titleRef="ngModel" minlength="3" />
+      <small *ngIf="titleRef.invalid && (titleRef.touched || titleRef.dirty)" class="text-danger"> Title of atleast 3 character is required.</small>
+      <label>Description</label>
+      <textarea name="description" [(ngModel)]="newTask.description" required #desRef="ngModel"></textarea>
+      <small *ngIf="desRef.invalid && (desRef.touched || desRef.dirty)"  class="text-danger">Description required.</small>
+       
+
+      <label>Status</label>
+      <select name="status" [(ngModel)]="newTask.status" required #statusRef="ngModel">
+        <option value="" [defaultSelected]="">-- Select Status --</option>
+         <option *ngFor="let status of statuses" [value]="status">
+          {{ status }}
+        </option> 
+      </select>
+      <small *ngIf="statusRef.invalid && (statusRef.touched || statusRef.dirty)" style="color: red;" class="text-danger">  Please select status.</small>
+       
+      
+      <div class="popup-actions">
+        <button type="submit" [disabled]="addTaskForm.invalid">Add Task</button>
+        <button type="button" (click)="closeAddTaskPopup()">Cancel</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
 

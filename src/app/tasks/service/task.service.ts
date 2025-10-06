@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
 export interface FetchedTask {
   userId: number;
@@ -9,6 +10,20 @@ export interface FetchedTask {
   title: string;
   completed: boolean;
 }
+
+enum TaskStatus {
+  ToDo = 'TO DO',
+  InProgress = 'In progress',
+  Completed = 'Completed'
+}
+
+interface Task {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,25 +35,29 @@ export class TaskService{
         id:1,title:"Learn Angular basic",description:"Helps to get basic understanding of Angular like component and rendering.",status:"Completed"
     },
     {
-        id:2,title:"Basic Hands on Angular",description:"Make you learn create basic angular project.",status:"TO DO"
+        id:2,title:"Basic Hands on Angular",description:"Make you learn create basic angular project.",status:"To Do"
     }
     ,
     {
-        id:3,title:"Learn Angular forms and routing",description:"You will be able to make forms and routing.",status:"Pending"
+        id:3,title:"Learn Angular forms and routing",description:"You will be able to make forms and routing.",status:"In Progress"
+    },
+    {
+        id:4,title:"Learn Angular forms and routing",description:"You will be able to make forms and routing.",status:"In Progress"
     }
   ]
 
   //tasks:{id:number, title: string; description: string; status: string }[]=[];
+  
 
-  getTasks(){
-    return this.tasks;
-    //return [];
+  getTasks(): Observable<Task[]> {
+  return this.tasks$;
   }
 
-  addTask(task: {id:number, title: string; description: string; status: string }) {
-    this.tasks.push(task);
-    
-  }
+  statuses:string[]=[
+    "To Do","In Progress","Completed"
+  ];
+
+
 
   private apiUrl = 'https://jsonplaceholder.typicode.com/todos';
 
@@ -51,7 +70,33 @@ export class TaskService{
 
 goBack(){
 this.location.back();
+} 
+
+// Observable state so that any value changes in task json will reflect to all component
+  private tasksSubject = new BehaviorSubject<Task[]>(this.tasks);
+  tasks$ = this.tasksSubject.asObservable();
+
+addTask(task: Task) {
+  console.log('Before Add:', this.tasks.length);
+  this.tasks.push(task);
+  console.log('After Add:', this.tasks.length);
+  this.tasksSubject.next([...this.tasks]);
 }
 
-  
+
+
+deleteTask(taskId:number){
+  this.tasks=this.tasks.filter(x=>x.id!==taskId);
+  this.tasksSubject.next([...this.tasks]);
+}
+
+editTask(updatedTask: Task) {
+  const index = this.tasks.findIndex(t => t.id === updatedTask.id);
+  if (index !== -1) {
+    this.tasks[index] = { ...updatedTask }; // Replace old task with updated
+    this.tasksSubject.next([...this.tasks]); // Notify all subscribers
+  }
+}
+
+
 }
