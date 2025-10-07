@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDividerModule } from '@angular/material/divider';
+import { TaskTableComponent } from './tasks/task-table/task-table.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MatDividerModule } from '@angular/material/divider';
     FooterComponent,
     TaskListComponent,
     AddTaskComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    TaskTableComponent
   ],
   imports: [
     BrowserModule,
