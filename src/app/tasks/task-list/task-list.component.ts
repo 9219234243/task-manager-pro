@@ -104,7 +104,6 @@ drop(event: CdkDragDrop<Task[]>, newStatus: 'TO DO' | 'In progress' | 'Completed
   }
 
 
-
   deleteTask(task: Task) {
     if (confirm(`Are you sure you want to delete task "${task.title}"?`)) {
       this.loading=true;
@@ -117,7 +116,7 @@ drop(event: CdkDragDrop<Task[]>, newStatus: 'TO DO' | 'In progress' | 'Completed
     id:0,
     title: '',
     description: '',
-    status: 'TO DO'
+    status: ''
   };
 
     showAddTaskPopup = false;
@@ -136,7 +135,7 @@ drop(event: CdkDragDrop<Task[]>, newStatus: 'TO DO' | 'In progress' | 'Completed
     this.newTask = {
       title: '',
       description: '',
-      status: 'TO DO'
+      status: ''
     };
   }
   isEdit=false;
