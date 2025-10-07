@@ -19,13 +19,13 @@ interface Task {
 export class TaskListComponent implements OnInit {
   tasks :{id:number,title:string,description:string,status:string}[]=[];
   //fetchedTasks:{userId: number;id: number;title: string;completed: boolean;}[]=[];
-    fetchedTasks: FetchedTask[] = [];
+  fetchedTasks: FetchedTask[] = [];
 
   loading:boolean=false;
   errorMessage:string="";
 
   constructor(private taskService :TaskService,private route : Router,private activatedRoute : ActivatedRoute) { }  
-  @ViewChild('addTaskForm') form! : NgForm;
+  //@ViewChild('addTaskForm') form! : NgForm;
 
   ngOnInit(): void {
     
@@ -68,9 +68,9 @@ export class TaskListComponent implements OnInit {
 
 
   todoTasks: Task[] = [];
-inProgressTasks: Task[] = [];
-completedTasks: Task[] = [];
-statuses:string[]=[];
+  inProgressTasks: Task[] = [];
+  completedTasks: Task[] = [];
+  statuses:string[]=[];
 
 
 loadTasks() {
@@ -104,10 +104,6 @@ drop(event: CdkDragDrop<Task[]>, newStatus: 'TO DO' | 'In progress' | 'Completed
   }
 
 
-  editTask(task: Task) {
-    alert(`Editing task: ${task.title}`);
-    // You can implement real edit logic here, e.g., open modal with form
-  }
 
   deleteTask(task: Task) {
     if (confirm(`Are you sure you want to delete task "${task.title}"?`)) {
@@ -118,14 +114,16 @@ drop(event: CdkDragDrop<Task[]>, newStatus: 'TO DO' | 'In progress' | 'Completed
   }
 
     newTask: Partial<Task> = {
+    id:0,
     title: '',
     description: '',
     status: 'TO DO'
   };
 
     showAddTaskPopup = false;
+
     openAddTaskPopup() {
-      this.newTask.title="tetscvc";
+    this.newTask.title="tetscvc";
     this.showAddTaskPopup = true;
     this.resetNewTask();
   }
@@ -141,26 +139,40 @@ drop(event: CdkDragDrop<Task[]>, newStatus: 'TO DO' | 'In progress' | 'Completed
       status: 'TO DO'
     };
   }
+  isEdit=false;
 
-  submitNewTask() {
-    // Generate unique ID - simple example (max existing id + 1)
-    const maxId = this.tasks.length ? Math.max(...this.tasks.map(t => t.id)) : 0;
-    // const taskToAdd: Task = {
-    //   id: maxId + 1,
-    //   title: this.newTask.title!.trim(),
-    //   description: this.newTask.description!.trim(),
-    //   status: this.newTask.status!
-    // };
-
+  submit() {
+    let taskId=this.newTask.id;
+    if(!this.isEdit){
+      taskId = this.tasks.length ? Math.max(...this.tasks.map(t => t.id))+1 : 0;
+    }
     const taskToAdd: Task = {
-      id: maxId + 1,
-      title: this.title!.trim(),
-      description: this.description!.trim(),
-      status: this.status!
+      id: taskId!,
+      title: this.newTask.title!.trim(),
+      description: this.newTask.description!.trim(),
+      status: this.newTask.status!
     };
-
-    this.taskService.addTask(taskToAdd);
+    
+    if(this.isEdit){
+      this.taskService.editTask(taskToAdd);
+      this.isEdit=false;
+    }else{
+      this.taskService.addTask(taskToAdd);
+    }
+    this.resetNewTask();
     this.closeAddTaskPopup();
+  }
+
+  
+  
+  editTask(task: Task) {
+    this.isEdit=true;
+    //alert(`Editing task: ${task.title}`);
+    this.newTask.id=task.id;
+    this.newTask.title=task.title;
+    this.newTask.description=task.description;
+    this.newTask.status=task.status;
+    this.showAddTaskPopup = true;
   }
 
 

@@ -92,6 +92,7 @@ deleteTask(taskId:number){
 
 editTask(updatedTask: Task) {
   const index = this.tasks.findIndex(t => t.id === updatedTask.id);
+  console.log("Index  ::  "+index)
   if (index !== -1) {
     this.tasks[index] = { ...updatedTask }; // Replace old task with updated
     this.tasksSubject.next([...this.tasks]); // Notify all subscribers

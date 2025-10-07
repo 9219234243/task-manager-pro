@@ -89,7 +89,7 @@
 </div> -->
 
 <div>
-<button class="add-task-btn" (click)="openAddTaskPopup()">+ Add Task</button>
+<button class="add-task-btn" style="margin-right: 0px !important;" (click)="openAddTaskPopup()">+ Add Task</button>
 </div>
 
 
@@ -99,7 +99,7 @@
     <h3 class="column-title">{{ col }}</h3>
     <div class="tasks-container">
       <div class="task-card" *ngFor="let task of getTasksByStatus(col)">
-        <div class="task-id">ID: {{ task.id }}</div>
+        <div class="task-id">ID: <a [routerLink]="['/task-detail', task.id]" class="text-decoration-none fw-bold"> {{ task.id }} </a></div>
         <div class="task-title">{{ task.title }}</div>
         <div class="task-desc">{{ task.description }}</div>
         <div class="actions">
@@ -115,7 +115,7 @@
 <div class="popup-overlay" *ngIf="showAddTaskPopup">
   <div class="popup">
     <h3>Add New Task</h3> 
-    <form (ngSubmit)="submitNewTask()" #addTaskForm="ngForm">
+    <form (ngSubmit)="submit()" #addTaskForm="ngForm">
 
       <label>Title</label>
       <input type="text" name="title" [(ngModel)]="newTask.title" required #titleRef="ngModel" minlength="3" />
@@ -136,7 +136,8 @@
        
       
       <div class="popup-actions">
-        <button type="submit" [disabled]="addTaskForm.invalid">Add Task</button>
+        <button *ngIf="!isEdit" type="submit" [disabled]="addTaskForm.invalid">Add Task</button>
+        <button *ngIf="isEdit" type="submit" [disabled]="addTaskForm.invalid">Edit Task</button>
         <button type="button" (click)="closeAddTaskPopup()">Cancel</button>
       </div>
 

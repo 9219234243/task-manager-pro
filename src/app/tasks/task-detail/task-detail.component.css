@@ -1,0 +1,70 @@
+.task-detail-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+
+
+
+/* Center the card horizontally and vertically with flexbox */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: start; /* align to top, not center vertically */
+  min-height: 100vh;
+  padding-top: 60px; /* spacing from top */
+  background-color: #f9f9f9; /* optional: light background for contrast */
+}
+
+.task-detail-card {
+  width: 100%;
+  max-width: 650px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background: #fff;
+}
+
+
+.task-avatar {
+  background-color: #3f51b5;
+  color: #fff;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-status {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* Status colors */
+.task-status.TO\ DO {
+  background-color: #e0e0e0;
+  color: #424242;
+}
+
+.task-status.Completed {
+  background-color: #c8e6c9;
+  color: #256029;
+}
+
+.task-status.In\ progress {
+  background-color: #bbdefb;
+  color: #0d47a1;
+}
+
+.task-section {
+  margin-top: 1.5rem;
+}
+
+.task-section h3 {
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+  color: #555;
+}
