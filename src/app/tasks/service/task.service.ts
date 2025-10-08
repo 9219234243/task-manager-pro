@@ -43,12 +43,35 @@ export class TaskService{
     },
     {
         id:4,title:"Learn Angular forms and routing",description:"You will be able to make forms and routing.",status:"In Progress"
+    },{
+        id:5,title:"Learn Angular basic",description:"Helps to get basic understanding of Angular like component and rendering.",status:"Completed"
+    },
+    {
+        id:6,title:"Basic Hands on Angular",description:"Make you learn create basic angular project.",status:"To Do"
+    }
+    ,
+    {
+        id:7,title:"Learn Angular forms and routing",description:"You will be able to make forms and routing.",status:"In Progress"
+    },
+    {
+        id:8,title:"Learn Angular forms and routing",description:"You will be able to make forms and routing.",status:"In Progress"
+    },
+    {
+        id:9,title:"Learn Angular basic",description:"Helps to get basic understanding of Angular like component and rendering.",status:"Completed"
+    },
+    {
+        id:10,title:"Basic Hands on Angular",description:"Make you learn create basic angular project.",status:"To Do"
+    }
+    ,
+    {
+        id:11,title:"Learn Angular forms and routing",description:"You will be able to make forms and routing.",status:"In Progress"
+    },
+    {
+        id:12,title:"Learn Angular forms and routing",description:"You will be able to make forms and routing.",status:"In Progress"
     }
   ]
 
-  //tasks:{id:number, title: string; description: string; status: string }[]=[];
   
-
   getTasks(): Observable<Task[]> {
   return this.tasks$;
   }

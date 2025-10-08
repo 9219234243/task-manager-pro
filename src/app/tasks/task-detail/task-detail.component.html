@@ -46,15 +46,16 @@
     </div>
   </div>
 </div> -->
-<div class="container">
+
 <div class="mat-card">
 <mat-card class="task-detail-card">
   <mat-card-header>
     <div mat-card-avatar class="task-avatar"></div>
+    
     <mat-card-title>{{ task.title }}</mat-card-title>
-    <mat-card-subtitle>
-      <span class="task-status" [ngClass]="task.status">{{ task.status }}</span>
-    </mat-card-subtitle>
+    <!-- <mat-card-subtitle>
+      <span class="task-status" [ngClass]="getStatusClass(task.status)">{{ task.status }}</span>
+    </mat-card-subtitle> -->
   </mat-card-header>
 
   <mat-divider></mat-divider>
@@ -64,7 +65,7 @@
       <h3>Description</h3>
       <p>{{ task.description || 'No description provided.' }}</p>
     </section>
+    <span class="task-status" [ngClass]="getStatusClass(task.status)">{{ task.status }}</span>
   </mat-card-content>
 </mat-card>
-</div>
 </div>

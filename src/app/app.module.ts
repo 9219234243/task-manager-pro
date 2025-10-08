@@ -16,8 +16,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDividerModule } from '@angular/material/divider';
 import { TaskTableComponent } from './tasks/task-table/task-table.component';
-
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +30,7 @@ import { TaskTableComponent } from './tasks/task-table/task-table.component';
     TaskListComponent,
     AddTaskComponent,
     TaskDetailComponent,
-    TaskTableComponent
+    TaskTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,14 @@ import { TaskTableComponent } from './tasks/task-table/task-table.component';
     HttpClientModule,
     MatProgressSpinnerModule,
     DragDropModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatInputModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

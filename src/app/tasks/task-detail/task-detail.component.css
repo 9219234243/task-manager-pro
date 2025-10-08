@@ -2,6 +2,7 @@
   max-width: 600px;
   margin: 2rem auto;
   padding: 1rem;
+  margin-right: 20%;
 }
 
 
@@ -41,22 +42,23 @@
   font-size: 0.85rem;
   padding: 4px 8px;
   border-radius: 4px;
+  right: inherit;
 }
 
 /* Status colors */
-.task-status.TO\ DO {
-  background-color: #e0e0e0;
-  color: #424242;
+.status-to-do {
+  /* background-color: #e0e0e0; */
+  color: yellow;
 }
 
-.task-status.Completed {
-  background-color: #c8e6c9;
-  color: #256029;
+.status-completed {
+  /* background-color: #c8e6c9; */
+  color: green;
 }
 
-.task-status.In\ progress {
-  background-color: #bbdefb;
-  color: #0d47a1;
+.status-in-progress {
+  /* background-color: #bbdefb; */
+  color: orange;
 }
 
 .task-section {

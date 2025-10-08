@@ -18,7 +18,7 @@ export class TaskDetailComponent implements OnInit {
     this.loading=true;
     this.taskId=this.activatedRoute.snapshot.paramMap.get('id');
     //this.task=this.taskService.getFetchedTasks().find(x=> x.id==this.taskId)
-    this.taskService.getFetchedTasks().subscribe(data => {
+    this.taskService.getTasks().subscribe(data => {
            this.task = data.find(x=>x.id==this.taskId) 
          });
     this.loading=false;
@@ -27,5 +27,10 @@ export class TaskDetailComponent implements OnInit {
 back(){
     this.taskService.goBack();
   }
+
+getStatusClass(status: string): string {
+  return 'status-' + status.toLowerCase().replace(/\s+/g, '-');
+}
+
 
 }
